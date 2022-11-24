@@ -3,9 +3,10 @@ import Head from "next/head";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import modaleUp from "../reducers/modaleUp";
+import modaleIn from "../reducers/modaleIn";
 
 const store = configureStore({
-  reducer: { modaleUp },
+  reducer: { modaleUp, modaleIn },
 });
 
 function App({ Component, pageProps }) {

@@ -1,15 +1,17 @@
 import styles from "../styles/Connection.module.css";
-import { useState } from "react";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModaleUp from "./ModaleUp";
 import { useSelector, useDispatch } from "react-redux";
 import { changeModaleUp } from "../reducers/modaleUp";
+import { changeModaleIn } from "../reducers/modaleIn";
+import ModaleIn from "./ModaleIn";
 
 function Connection() {
   const dispatch = useDispatch();
 
   const modalVisible = useSelector((state) => state.modaleUp.value);
+  const modalVisibleIn = useSelector((state) => state.modaleIn.value);
 
   let modalDisplay;
 
@@ -21,6 +23,18 @@ function Connection() {
     );
   } else {
     modalDisplay = null;
+  }
+
+  let modalDisplayIn;
+
+  if (modalVisibleIn) {
+    modalDisplayIn = (
+      <div className={styles.modaleUp}>
+        <ModaleIn />
+      </div>
+    );
+  } else {
+    modalDisplayIn = null;
   }
 
   return (
@@ -43,9 +57,17 @@ function Connection() {
           Sign up
         </button>
         <p>Already have an account ?</p>
-        <button className={styles.buttonIn}>Sign in</button>
+        <button
+          onClick={() => {
+            dispatch(changeModaleIn(true));
+          }}
+          className={styles.buttonIn}
+        >
+          Sign in
+        </button>
       </div>
       {modalDisplay}
+      {modalDisplayIn}
     </div>
   );
 }
