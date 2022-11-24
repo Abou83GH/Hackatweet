@@ -5,8 +5,7 @@ import Connection from "./connection";
 function Home() {
   return (
     <div>
-      <HomeTweet />
-      <Connection />
+      {/* <Connection /> */}
     </div>
   );
 }

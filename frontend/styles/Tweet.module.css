@@ -1,11 +1,23 @@
 .container{
-  background-color: aqua;
+  background-color:  #151D26;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: left;
+  padding:10px;
+  color: white;
+  border-bottom: white solid 1px;
 }
 
-.firstName{
-    color : white;
+.nameAndtime{
+    color : gray;
+}
+
+.message{
+   margin : 15px;
+}
+
+.heart{
+    color :white;
+    margin : 5px;
 }
