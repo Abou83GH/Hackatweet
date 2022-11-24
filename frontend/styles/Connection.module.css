@@ -13,6 +13,9 @@
   grid-row-end: 13;
   grid-column-start: 1;
   grid-column-end: 6;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .right {
@@ -51,4 +54,27 @@
   border: 2px solid #545f6a;
   background-color: transparent;
   color: #3690ed;
+}
+
+.logo {
+  transform: rotate(180deg);
+  height: 50px;
+  width: 50px;
+  margin-top: 25px;
+}
+
+.logoLeft {
+  transform: rotate(180deg);
+  height: 250px;
+  width: 250px;
+  color: white;
+}
+
+.modaleUp {
+  grid-row-start: 3;
+  grid-row-end: 10;
+  grid-column-start: 7;
+  grid-column-end: 11;
+  border: 2px solid #545f6a;
+  border-radius: 15px;
 }
