@@ -112,3 +112,17 @@
     margin : 10px;
   }
 
+  .logoApp {
+    transform: rotate(180deg);
+    height: 50px;
+    width: 50px;
+    color: white;
+  }
+
+  .logoUser {
+    height: 30px;
+    width: 30px;
+    color: white;
+    margin : 2px;
+  }
+
