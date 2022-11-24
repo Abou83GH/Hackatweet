@@ -45,6 +45,7 @@
   background-color: #3690ed;
   color: white;
   font-weight: 750;
+  cursor: pointer;
 }
 
 .buttonIn {
@@ -54,6 +55,7 @@
   border: 2px solid #545f6a;
   background-color: transparent;
   color: #3690ed;
+  cursor: pointer;
 }
 
 .logo {
@@ -77,4 +79,5 @@
   grid-column-end: 11;
   border: 2px solid #545f6a;
   border-radius: 15px;
+  background-color: #151d26;
 }
