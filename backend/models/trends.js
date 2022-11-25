@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const trendsSchema = mongoose.Schema({
   hashtag: String,
-  counter: Number,
+  number: Number,
 });
 
 const Trends = mongoose.model("trends", trendsSchema);

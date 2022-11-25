@@ -21,13 +21,11 @@ function ModaleUp() {
   };
   const theUser = useSelector((state) => state.user.value);
   const handleSign = () => {
-    console.log("avant", theUser);
     dispatch(addUser({ firstName: firstName, userName: userName, token: "" }));
-    const theUserA = useSelector((state) => state.user.value);
-    console.log("après", theUserA);
-    // setTimeout(navigate(), 1000);
+    //setTimeout(navigate(), 1000);
+    navigate();
   };
-
+  
   // fonctions pour changer de page
   const router = useRouter();
   const navigate = () => {

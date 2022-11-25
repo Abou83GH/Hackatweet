@@ -20,6 +20,7 @@ function HomeTweet() {
 
   //récuperation du user
   const theUser = useSelector((state) => state.user.value);
+  console.log('theuser',theUser)
 
   // récuperation des tweets
   const theTweets = useSelector((state) => state.allTweets.value);
@@ -32,8 +33,8 @@ function HomeTweet() {
     // on ajoute le message au reducer
     dispatch(
       addTweet({
-        firstname: theUser.firstname,
-        username: theUser.username,
+        firstname: theUser.firstName,
+        username: theUser.userName,
         date: Date.now(),
         message: theMessage,
         likes: 0,
@@ -46,7 +47,7 @@ function HomeTweet() {
     for (let item of listHashtags) {
       dispatch(updateTrend(`#${item}`));
     }
-    console.log(theTrends);
+
     // on reset l'input
   };
 
@@ -87,7 +88,7 @@ function HomeTweet() {
             />
           </div>
           <div className={styles.username}>
-            <span>{theUser.firstname}</span>@{theUser.username}
+            <span>{theUser.firstName}</span>@{theUser.userName}
           </div>
         </div>
       </div>

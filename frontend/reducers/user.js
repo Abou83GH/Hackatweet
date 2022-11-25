@@ -19,7 +19,6 @@ export const userSlice = createSlice({
         userName: action.payload.userName,
         token: action.payload.token,
       };
-      console.log(state.value);
     },
   },
 });
