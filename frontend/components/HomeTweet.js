@@ -20,7 +20,6 @@ function HomeTweet() {
 
   //récuperation du user
   const theUser = useSelector((state) => state.user.value);
-  console.log('theuser',theUser)
 
   // récuperation des tweets
   const theTweets = useSelector((state) => state.allTweets.value);
@@ -43,7 +42,6 @@ function HomeTweet() {
     );
     // on met à jour les trends
     const listHashtags = getHashtags(theMessage);
-    console.log(listHashtags);
     for (let item of listHashtags) {
       dispatch(updateTrend(`#${item}`));
     }
@@ -77,6 +75,7 @@ function HomeTweet() {
         <div className={styles.logoLeft}>
           <FontAwesomeIcon icon={faTwitter} className={styles.logoApp} />
         </div>
+        <div className={styles.bottom}>
         <div className={styles.user}>
           <div>
             <Image
@@ -90,7 +89,8 @@ function HomeTweet() {
           <div className={styles.username}>
             <span>{theUser.firstName}</span>@{theUser.userName}
           </div>
-          <button onClick={() => {console.log('click logout')}} className={styles.buttonLogout}>Logout</button>
+        </div>
+        <button onClick={() => {console.log('click logout')}} className={styles.buttonLogout}>Logout</button>
         </div>
       </div>
       {/* HOME */}
@@ -105,7 +105,7 @@ function HomeTweet() {
             value={theMessage}
           />
           <div className={styles.validation}>
-            <span> caractères</span>
+            <span>{theMessage.length}/250</span>
             <button
               className={styles.buttonTweet}
               onClick={() => handleTweet()}

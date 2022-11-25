@@ -82,12 +82,13 @@
 
 .buttonLogout {
   border-radius: 25px;
-  width: 150px;
-  height: 40px;
+  width: 80px;
+  height: 25px;
   border: 2px solid #545f6a;
   background-color: transparent;
-  color: #3690ed;
+  color: white;
   cursor: pointer;
+  margin-bottom: 5px;
 }
 
 .validation {
@@ -142,4 +143,10 @@
 
 .pp {
   border-radius: 50%;
+}
+
+.bottom{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
