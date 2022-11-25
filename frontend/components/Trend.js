@@ -1,6 +1,6 @@
 import styles from '../styles/Trend.module.css';
 
-function Tweet(props) {
+function Trend(props) {
     
     return (
       <div className={styles.container}>

@@ -1,5 +1,6 @@
 import styles from '../styles/HomeTweet.module.css';
 import Tweet from './Tweet';
+import Trend from './Trend';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter} from "@fortawesome/free-brands-svg-icons";
@@ -7,6 +8,7 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { addTweet } from "../reducers/alltweets";
+import { updateTrend } from "../reducers/alltrends";
 
 import { useState } from 'react';
 
@@ -19,11 +21,21 @@ function HomeTweet() {
 
  // récuperation des tweets   
   const theTweets = useSelector((state) => state.allTweets.value);
+
+   // récuperation des trends   
+   const theTrends = useSelector((state) => state.allTrends.value);
   
   // gestion du click sur le bouton tweet
   const handleTweet = () => {
      // on ajoute le message au reducer
        dispatch(addTweet({firstname : null, username:null, date : Date.now(), message :theMessage ,likes : 0 }))  
+     // on met à jour les trends
+     const listHashtags = getHashtags(theMessage);
+     console.log(listHashtags)
+     for(let item of listHashtags){
+        dispatch(updateTrend(`#${item}`));
+     }
+     console.log(theTrends)
      // on reset l'input
   }
 
@@ -31,6 +43,11 @@ function HomeTweet() {
   const displayTweets = theTweets.map((elt,i)=>{
              return  <Tweet key={i} firstname={elt.firstname} username={elt.username} date = {elt.date} message={elt.message} likes={elt.likes} isliked={false}/>
             })
+
+  // affiche des trends
+  const displayTrends = theTrends.map((elt,i)=>{
+             return  <Trend key={i} title={elt.title} occurence={elt.occurence}/>
+            })          
   return (
     <div className={styles.container}>
         {/* LEFT */}
@@ -55,7 +72,7 @@ function HomeTweet() {
         {/* RIGHT */}
         <div className={styles.rightContainer}>
         <span> Trends </span>
-        <div className={styles.trendsContainer}> #hackatweet</div>
+        <div className={styles.trendsContainer}>{displayTrends}</div>
         </div>
     </div>
   );

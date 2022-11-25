@@ -5,9 +5,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import modaleUp from "../reducers/modaleUp";
 import modaleIn from "../reducers/modaleIn";
 import allTweets from "../reducers/alltweets";
+import allTrends from "../reducers/alltrends";
 
 const store = configureStore({
-  reducer: { modaleUp, modaleIn, allTweets },
+  reducer: { modaleUp, modaleIn, allTweets, allTrends },
 });
 
 function App({ Component, pageProps }) {

@@ -5,6 +5,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 import { useState } from 'react';
 
+const {setSpan} = require('../modules/tools');
 
 function Tweet(props) {
 
@@ -19,7 +20,7 @@ function Tweet(props) {
   const handleLike = () => {
       setIsLiked(!isLiked)
   }
-
+  
 
   return (
     <div className={styles.container}>
