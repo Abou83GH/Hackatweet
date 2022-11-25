@@ -29,6 +29,8 @@ function setSpan(message){
                 return elt;
            }
         })
-    return arraySpanHashtag.join(' ');
+    return arraySpanHashtag;
 }
+
+
 module.exports = { checkBody, getHashtags, setSpan };

@@ -106,9 +106,10 @@
 }
 
 .trendsContainer {
-  background-color: white;
   width: 22vw;
   margin-top: 20px;
+  background-color: #1b232c;
+  border-radius: 15px;
 }
 
 .logoLeft {

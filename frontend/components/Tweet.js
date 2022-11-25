@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useState } from "react";
+const { setSpan } = require("../modules/tools");
 
 function Tweet(props) {
   const [isLiked, setIsLiked] = useState(props.userLike);

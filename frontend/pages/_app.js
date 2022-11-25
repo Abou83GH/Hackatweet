@@ -6,9 +6,10 @@ import modaleUp from "../reducers/modaleUp";
 import modaleIn from "../reducers/modaleIn";
 import allTweets from "../reducers/alltweets";
 import user from "../reducers/user";
+import allTrends from "../reducers/alltrends";
 
 const store = configureStore({
-  reducer: { modaleUp, modaleIn, allTweets, user },
+  reducer: { modaleUp, modaleIn, allTweets, user, allTrends },
 });
 
 function App({ Component, pageProps }) {

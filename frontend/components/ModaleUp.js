@@ -3,22 +3,33 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { changeModaleUp } from "../reducers/modaleUp";
-import { useDispatch } from "react-redux";
-import Link from 'next/link';
+import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import user, { addUser } from "../reducers/user";
+import { useState } from "react";
 
 function ModaleUp() {
+  const [firstName, setFirstName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
 
   const handleClose = () => {
     dispatch(changeModaleUp(false));
   };
-  
+
+  const handleSign = () => {
+    dispatch(addUser({ firstName: firstName, userName: userName, token: "" }));
+    navigate();
+  };
+
   // fonctions pour changer de page
   const router = useRouter();
-  console.log(router);
-  const navigate = () => {router.push('/homeTweet'); }
+  const navigate = () => {
+    router.push("/homeTweet");
+  };
 
   return (
     <div className={styles.main}>
@@ -35,15 +46,35 @@ function ModaleUp() {
         <div className={styles.modaleUp}>
           <FontAwesomeIcon className={styles.logoT} icon={faTwitter} />
           <p className={styles.text}>Create your Hackatweet account</p>
-          <input className={styles.input} type="text" placeholder="Firstname" />
-          <input className={styles.input} type="text" placeholder="Username" />
+          <input
+            className={styles.input}
+            type="text"
+            placeholder="Firstname"
+            onChange={(e) => setFirstName(e.target.value)}
+            value={firstName}
+          />
+          <input
+            className={styles.input}
+            type="text"
+            placeholder="Username"
+            onChange={(e) => setUserName(e.target.value)}
+            value={userName}
+          />
           <input
             className={styles.input}
             type="password"
             placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
-          <button className={styles.button} onClick={() => {navigate() }} >Sign up</button>
-          
+          <button
+            className={styles.button}
+            onClick={() => {
+              handleSign();
+            }}
+          >
+            Sign up
+          </button>
         </div>
       </div>
     </div>

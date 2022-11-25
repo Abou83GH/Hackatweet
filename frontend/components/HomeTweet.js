@@ -1,14 +1,15 @@
 import styles from "../styles/HomeTweet.module.css";
 import Tweet from "./Tweet";
+import Trend from "./Trend";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addTweet } from "../reducers/alltweets";
 import Image from "next/image";
 import { useState } from "react";
+import { updateTrend } from "../reducers/alltrends";
 
 const { getHashtags, setSpan } = require("../modules/tools");
 
@@ -19,6 +20,11 @@ function HomeTweet() {
 
   // récuperation des tweets
   const theTweets = useSelector((state) => state.allTweets.value);
+
+  // gestion du click sur le bouton tweet
+
+  // récuperation des trends
+  const theTrends = useSelector((state) => state.allTrends.value);
 
   // gestion du click sur le bouton tweet
   const handleTweet = () => {
@@ -32,6 +38,13 @@ function HomeTweet() {
         likes: 0,
       })
     );
+    // on met à jour les trends
+    const listHashtags = getHashtags(theMessage);
+    console.log(listHashtags);
+    for (let item of listHashtags) {
+      dispatch(updateTrend(`#${item}`));
+    }
+    console.log(theTrends);
     // on reset l'input
   };
 
@@ -48,6 +61,11 @@ function HomeTweet() {
         isliked={false}
       />
     );
+  });
+
+  // affiche des trends
+  const displayTrends = theTrends.map((elt, i) => {
+    return <Trend key={i} title={elt.title} occurence={elt.occurence} />;
   });
   return (
     <div className={styles.container}>
@@ -98,7 +116,7 @@ function HomeTweet() {
       {/* RIGHT */}
       <div className={styles.rightContainer}>
         <span> Trends </span>
-        <div className={styles.trendsContainer}> #hackatweet</div>
+        <div className={styles.trendsContainer}>{displayTrends}</div>
       </div>
     </div>
   );

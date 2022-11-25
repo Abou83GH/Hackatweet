@@ -4,7 +4,7 @@ const initialState = {
   value: {
     firstName: "",
     userName: "",
-    password: "",
+    token: "",
   } /*Value de base dans l'exemple un tableau*/,
 };
 
@@ -16,7 +16,7 @@ export const userSlice = createSlice({
     addUser: (state, action) => {
       state.value = { firstName: action.payload.firstName };
       state.value = { userName: action.payload.userName };
-      state.value = { password: action.payload.password };
+      state.value = { token: action.payload.token };
     },
   },
 });
