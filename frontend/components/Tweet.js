@@ -8,7 +8,7 @@ const { setSpan } = require("../modules/tools");
 
 function Tweet(props) {
   const [isLiked, setIsLiked] = useState(props.userLike);
-  const[nbLike,setNbLike] = useState(props.likes)
+  const [nbLike, setNbLike] = useState(props.likes);
 
   let heartIconStyle = { cursor: "pointer" };
   if (isLiked) {
@@ -17,14 +17,13 @@ function Tweet(props) {
 
   // click heart
   const handleLike = () => {
-    if(isLiked){
-      setNbLike(nbLike-1);
+    if (isLiked) {
+      setNbLike(nbLike - 1);
     }
-    if(!isLiked){
-      setNbLike(nbLike+1);
+    if (!isLiked) {
+      setNbLike(nbLike + 1);
     }
     setIsLiked(!isLiked);
-
   };
 
   return (
