@@ -29,24 +29,34 @@ function HomeTweet() {
 
   // gestion du click sur le bouton tweet
   const handleTweet = () => {
-    // on ajoute le message au reducer
-    dispatch(
-      addTweet({
-        firstname: theUser.firstName,
-        username: theUser.userName,
-        date: Date.now(),
-        message: theMessage,
-        likes: 0,
-        userLike: false,
-      })
-    );
-    // on met à jour les trends
-    const listHashtags = getHashtags(theMessage);
-    for (let item of listHashtags) {
-      dispatch(updateTrend(`#${item}`));
-    }
+    // on rajoute le tweet en DB
+    fetch("http://localhost:3000/tweets/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: theUser.token, message : theMessage, hashtags: '#essai' }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+          if(data.result){
+            dispatch(addTweet({
+              // on ajoute le message au reducer
+                firstname: theUser.firstName,
+                username: theUser.userName,
+                date: Date.now(),
+                message: theMessage,
+                likes: 0,
+                userLike: false,
+              }));
+              // on met à jour les trends
+              const listHashtags = getHashtags(theMessage);
+              for (let item of listHashtags) {
+                dispatch(updateTrend(`#${item}`));
+              }
+          }
 
+      })
     // on reset l'input
+    setTheMessage('');
   };
 
   // affichage des tweets

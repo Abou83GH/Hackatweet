@@ -26,6 +26,7 @@ function ModaleIn() {
 
   // fonction pour gérer la validation
   const handleSign = () => {
+    console.log("click")
     // on verifie si les champs sont remplis
     if (
       checkBody({ userName: userName, password: password }, [
@@ -40,7 +41,7 @@ function ModaleIn() {
         body: JSON.stringify({ userName: userName, password: password }),
       })
         .then((response) => response.json())
-        .then((data) => {
+        .then((data) => { 
           if (data.result) {
             dispatch(
               addUser({

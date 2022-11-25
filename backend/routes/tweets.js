@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 require("../models/connection");
-const Tweet = require('../models/tweets');
+const Tweet = require('../models/tweet');
 const User = require('../models/users');
 const Trends= require('../models/trends');
 
@@ -15,7 +15,7 @@ router.post('/add', (req, res) => {
           // on crée un nouveau tweet
             const newTweet = new Tweet({
                 user : dataUser.id,
-                message: String,
+                message: req.body.message,
                 date: Date.now(),
                 likes: [],
                 hashtags: req.body.hashtags,
