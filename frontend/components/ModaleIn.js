@@ -26,14 +26,14 @@ function ModaleIn() {
 
   // fonction pour gérer la validation
   const handleSign = () => {
-    console.log("click")
+    
     // on verifie si les champs sont remplis
     if (
       checkBody({ userName: userName, password: password }, [
         "userName",
         "password",
       ])
-    ) {
+    ) {console.log("click")
       // on utilise la route pour enregistrer l'utilisateur
       fetch("http://localhost:3000/users/signin", {
         method: "POST",
