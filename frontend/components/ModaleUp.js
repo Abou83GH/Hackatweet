@@ -6,7 +6,7 @@ import { changeModaleUp } from "../reducers/modaleUp";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import user, { addUser } from "../reducers/user";
+import { addUser } from "../reducers/user";
 import { useState } from "react";
 
 function ModaleUp() {
@@ -19,10 +19,13 @@ function ModaleUp() {
   const handleClose = () => {
     dispatch(changeModaleUp(false));
   };
-
+  const theUser = useSelector((state) => state.user.value);
   const handleSign = () => {
+    console.log("avant", theUser);
     dispatch(addUser({ firstName: firstName, userName: userName, token: "" }));
-    navigate();
+    const theUserA = useSelector((state) => state.user.value);
+    console.log("après", theUserA);
+    // setTimeout(navigate(), 1000);
   };
 
   // fonctions pour changer de page

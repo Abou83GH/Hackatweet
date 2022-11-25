@@ -18,10 +18,11 @@ function HomeTweet() {
   //
   const [theMessage, setTheMessage] = useState("");
 
+  //récuperation du user
+  const theUser = useSelector((state) => state.user.value);
+
   // récuperation des tweets
   const theTweets = useSelector((state) => state.allTweets.value);
-
-  // gestion du click sur le bouton tweet
 
   // récuperation des trends
   const theTrends = useSelector((state) => state.allTrends.value);
@@ -31,11 +32,12 @@ function HomeTweet() {
     // on ajoute le message au reducer
     dispatch(
       addTweet({
-        firstname: null,
-        username: null,
+        firstname: theUser.firstname,
+        username: theUser.username,
         date: Date.now(),
         message: theMessage,
         likes: 0,
+        userLike: false,
       })
     );
     // on met à jour les trends
@@ -85,7 +87,7 @@ function HomeTweet() {
             />
           </div>
           <div className={styles.username}>
-            <span>Gabin</span>@Gabinio
+            <span>{theUser.firstname}</span>@{theUser.username}
           </div>
         </div>
       </div>

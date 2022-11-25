@@ -14,9 +14,12 @@ export const userSlice = createSlice({
   initialState /*Appel de l'état initial*/,
   reducers: {
     addUser: (state, action) => {
-      state.value = { firstName: action.payload.firstName };
-      state.value = { userName: action.payload.userName };
-      state.value = { token: action.payload.token };
+      state.value = {
+        firstName: action.payload.firstName,
+        userName: action.payload.userName,
+        token: action.payload.token,
+      };
+      console.log(state.value);
     },
   },
 });
