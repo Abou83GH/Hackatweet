@@ -18,9 +18,11 @@ function Tweet(props) {
   // click heart
   const handleLike = () => {
     if(isLiked){
+      // on retire le user du tweet dans la DB
       setNbLike(nbLike-1);
     }
     if(!isLiked){
+      // on ajoute le user dans le tweet de la DB
       setNbLike(nbLike+1);
     }
     setIsLiked(!isLiked);

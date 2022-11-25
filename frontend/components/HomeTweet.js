@@ -6,10 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addTweet } from "../reducers/alltweets";
+import { addTweet, removeTweets } from "../reducers/alltweets";
+import { updateTrend, removeTrends } from "../reducers/alltrends";
+import { removeUser } from "../reducers/user";
+
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { updateTrend } from "../reducers/alltrends";
+
+import { useRouter } from "next/router";
+
 
 const { getHashtags, setSpan } = require("../modules/tools");
 
@@ -27,29 +32,32 @@ function HomeTweet() {
   // récuperation des trends
   const theTrends = useSelector((state) => state.allTrends.value);
 
+ let essai ;
   // récupération des tweets au chargement
   useEffect(() => {
     fetch('http://localhost:3000/tweets')
     .then(response => response.json())
     .then(dataTweets => {
-        if(dataTweets.result){
-          console.log(DataTweets.data)
-          // on ajoute les messages au reducer
-          for(let item of dataTweets.data){
-            const isUserLike = item.likes.some(elt => elt === theUser.token);
-            dispatch(addTweet({
-                firstname: theUser.firstName,
-                username: theUser.userName,
-                date: item.Date,
-                message: item.message,
-                likes: item.likes.length,
-                userLike: isUserLike,
-              }));
-          }
-        } 
+      console.log(dataTweets)
+      if(dataTweets.result){
+        // on ajoute les messages au reducer
+        for(let item of dataTweets.data){
+          const isUserLike = item.likes.some(elt => elt === theUser.token);
+          dispatch(addTweet({
+              firstname: theUser.firstName,
+              username: theUser.userName,
+              date: item.Date,
+              message: item.message,
+              likes: item.likes.length,
+              userLike: isUserLike,
+            }));
+        }
+      }  
     })
+       
+    },[]);
+      
 
-  },[]);
 
   // gestion du click sur le bouton tweet
   const handleTweet = () => {
@@ -82,6 +90,18 @@ function HomeTweet() {
     // on reset l'input
     setTheMessage('');
   };
+  
+  const router = useRouter();
+  const navigate = () => {
+    router.push("/connection");
+  };
+  const handleLogout = () => {
+      //on efface tous les reducers
+      dispatch(removeUser());
+      dispatch(removeTrends());
+      dispatch(removeTweets());
+      navigate();
+  }
 
   // affichage des tweets
   const displayTweets = theTweets.map((elt, i) => {
@@ -124,7 +144,7 @@ function HomeTweet() {
             <span>{theUser.firstName}</span>@{theUser.userName}
           </div>
         </div>
-        <button onClick={() => {console.log('click logout')}} className={styles.buttonLogout}>Logout</button>
+        <button onClick={() => {handleLogout()}} className={styles.buttonLogout}>Logout</button>
         </div>
       </div>
       {/* HOME */}

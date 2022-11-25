@@ -51,6 +51,7 @@ function ModaleIn() {
               })
             );
             navigate();
+            dispatch(changeModaleIn(false));
           }
         });
     }

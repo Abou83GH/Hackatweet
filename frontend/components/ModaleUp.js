@@ -41,6 +41,7 @@ function ModaleUp() {
                       if(data.result){
                             dispatch(addUser({ firstName: firstName, userName: userName, token: "" }));
                             navigate();
+                            dispatch(changeModaleUp(false));
                       }
               })
     }
