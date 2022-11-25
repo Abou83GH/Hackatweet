@@ -1,27 +1,37 @@
-.container{
-  background-color:  #151D26;
+.container {
+  background-color: #151d26;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: left;
-  padding:10px;
+  padding: 10px;
   color: white;
-  border-bottom: white solid 1px;
+  border-bottom: #29313b solid 2px;
 }
 
-.nameAndtime{
-    color : gray;
+.nameAndtime {
+  color: gray;
 }
 
-.message{
-   margin : 15px;
+.message {
+  margin: 15px;
 }
 
-.heart{
-    color :white;
-    margin : 5px;
+.heart {
+  color: white;
+  margin: 5px;
 }
 
-.colorHashtag{
-  color : blue;
+.info {
+  display: flex;
+  align-items: center;
+}
+
+.colorHashtag {
+  color: blue;
+}
+
+.pp {
+  border-radius: 50%;
+  margin: 15px;
 }

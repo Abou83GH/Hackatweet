@@ -1,128 +1,134 @@
-.container{
-     display: grid;
-    width: 100vw;
-    height: 100vh;
-    grid-template-rows: repeat(12, 1fr);
-    grid-template-columns: repeat(12, 1fr);
-    background-color: #151d26;
-      }
-
-.leftContainer{
-    grid-row-start: 1;
-    grid-row-end: 13;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    color:white;
-    background-color: #151D26;
-    display : flex;
-    flex-direction: column;
-    justify-content: space-between;
+.container {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-rows: repeat(12, 1fr);
+  grid-template-columns: repeat(12, 1fr);
+  background-color: #151d26;
 }
 
-.home{
-    background-color: #151D26;
-    color : white;
-    grid-row-start: 1;
-    grid-row-end: 4;
-    grid-column-start: 3;
-    grid-column-end: 10;
-    border-left: white solid 1px;
-    border-right: white solid 1px;
-    border-bottom: white solid 1px;
-    display: flex;
-    flex-direction: column;
-    padding-top: 1.5vw;
-    padding-left: 1.5vw;
+.leftContainer {
+  grid-row-start: 1;
+  grid-row-end: 13;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  color: white;
+  background-color: #151d26;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.tweetsContainer{
-    background-color: #151D26;
-    grid-row-start: 4;
-    grid-row-end: 13;
-    grid-column-start: 3;
-    grid-column-end: 10;
-    border-left: white solid 1px;
-    border-right: white solid 1px;
+.home {
+  background-color: #151d26;
+  color: white;
+  font-weight: 800;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  grid-column-start: 3;
+  grid-column-end: 10;
+  border-left: #29313b solid 2px;
+  border-right: #29313b solid 2px;
+  border-bottom: #29313b solid 2px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.5vw;
+  padding-left: 1.5vw;
 }
 
-.rightContainer{
-    background-color: #151D26;
-    color:white;
-    grid-row-start: 1;
-    grid-row-end: 13;
-    grid-column-start: 10;
-    grid-column-end: 13;
-    padding-top: 1.5vw;
-    padding-left: 1.5vw;
+.tweetsContainer {
+  background-color: #151d26;
+  grid-row-start: 4;
+  grid-row-end: 13;
+  grid-column-start: 3;
+  grid-column-end: 10;
+  border-left: #29313b solid 2px;
+  border-right: #29313b solid 2px;
 }
 
-.user{
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-    margin-bottom: 10px;
+.rightContainer {
+  background-color: #151d26;
+  color: white;
+  grid-row-start: 1;
+  grid-row-end: 13;
+  grid-column-start: 10;
+  grid-column-end: 13;
+  padding-top: 1.5vw;
+  padding-left: 1.5vw;
 }
 
-.username{
-    display: flex;
-    flex-direction: column;
+.user {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.username {
+  display: flex;
+  flex-direction: column;
 }
 
 .buttonTweet {
-    border-radius: 25px;
-    width: 80px;
-    height: 30px;
-    border: none;
-    background-color: #3690ed;
-    color: white;
-    font-weight: 750;
-    margin:5px;
-  }
+  border-radius: 25px;
+  width: 80px;
+  height: 30px;
+  border: none;
+  background-color: #3690ed;
+  color: white;
+  font-weight: 750;
+  margin: 5px;
+}
 
-  .validation{
-    display: flex;
-    justify-content: right;
-    align-items: center;
-  }
+.validation {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
 
-  .tweetwriting{
-    background-color: #151D26;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left:4vw;
-    margin-right: 4vw;
-  }
+.tweetwriting {
+  background-color: #151d26;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 4vw;
+  margin-right: 4vw;
+}
 
-  .inputTweet{
-    height: 5vh;
-    background-color: #151D26;
-    color : white;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+.inputTweet {
+  height: 5vh;
+  background-color: #151d26;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-bottom: 2px solid #4e555c;
+}
 
-  .trendsContainer{
-    background-color: white;
-    width: 22vw;
-    margin-top: 20px;
-  }
+.trendsContainer {
+  background-color: white;
+  width: 22vw;
+  margin-top: 20px;
+}
 
-  .logoLeft{
-    margin : 10px;
-  }
+.logoLeft {
+  margin: 10px;
+}
 
-  .logoApp {
-    transform: rotate(180deg);
-    height: 50px;
-    width: 50px;
-    color: white;
-  }
+.logoApp {
+  transform: rotate(180deg);
+  height: 50px;
+  width: 50px;
+  color: white;
+}
 
-  .logoUser {
-    height: 30px;
-    width: 30px;
-    color: white;
-    margin : 2px;
-  }
+.logoUser {
+  height: 30px;
+  width: 30px;
+  color: white;
+  margin: 2px;
+}
 
+.pp {
+  border-radius: 50%;
+}
