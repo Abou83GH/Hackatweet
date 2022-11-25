@@ -5,7 +5,6 @@ import Connection from "./connection";
 function Home() {
   return (
     <div>
-      {/* <Connection /> */}
       {/* <HomeTweet /> */}
 
       <Connection />
