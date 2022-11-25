@@ -10,7 +10,7 @@ import { addTweet } from "../reducers/alltweets";
 
 import { useState } from 'react';
 
-
+const { getHashtags, setSpan} = require('../modules/tools');
 
 function HomeTweet() {
     const dispatch = useDispatch();
@@ -23,8 +23,7 @@ function HomeTweet() {
   // gestion du click sur le bouton tweet
   const handleTweet = () => {
      // on ajoute le message au reducer
-    
-     dispatch(addTweet({firstname : null, username:null, date : Date.now(), message :theMessage ,likes : 0 }))
+       dispatch(addTweet({firstname : null, username:null, date : Date.now(), message :theMessage ,likes : 0 }))  
      // on reset l'input
   }
 

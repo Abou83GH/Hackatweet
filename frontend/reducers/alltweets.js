@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"; /*L'import obligatoire*/
 
 const initialState = {
-  value: [{firstname : 'Nico', username : 'Lead', date : "", message :'blabla,' ,likes : 2 },
-  {firstname : 'Gabin', username : 'Junior', date : "", message :'blabla,' ,likes : 5 }
+  value: [{firstname : 'Nico', username : 'Lead', date : "", message :'blabla,' ,likes : 2 , userLike:true},
+  {firstname : 'Gabin', username : 'Junior', date : "", message :'blabla, #test' ,likes : 5, userLike:false }
   ],
 };
 
