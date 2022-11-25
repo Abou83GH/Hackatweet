@@ -9,6 +9,8 @@ import { useRouter } from "next/router";
 import { addUser } from "../reducers/user";
 import { useState } from "react";
 
+import { checkBody } from "../modules/tools";
+
 function ModaleUp() {
   const [firstName, setFirstName] = useState("");
   const [userName, setUserName] = useState("");
@@ -16,21 +18,36 @@ function ModaleUp() {
 
   const dispatch = useDispatch();
 
+    // fonctions pour changer de page
+    const router = useRouter();
+    const navigate = () => {
+      router.push("/homeTweet");
+    };
+  
+  // fonction pour gérer la fermuture de la modale
   const handleClose = () => {
     dispatch(changeModaleUp(false));
   };
-  const theUser = useSelector((state) => state.user.value);
+
+  // fonction pour gérer la validation
   const handleSign = () => {
-    dispatch(addUser({ firstName: firstName, userName: userName, token: "" }));
+    const userToCreate =  {userName : userName, firstName : firstName, password: password};
+    // on verifie si les champs sont remplis
+    if(checkBody(userToCreate,['firstName','userName', 'password'])){
+        // on utilise la route pour enregistrer l'utilisateur
+        fetch('http://localhost:3000/users/signup', {method : 'POST', headers: { 'Content-Type': 'application/json' }, body :JSON.stringify(userToCreate) }
+             ).then(response => response.json())
+        .then(data => {
+                      if(data.result){
+                            dispatch(addUser({ firstName: firstName, userName: userName, token: "" }));
+                            navigate();
+                      }
+              })
+    }
     //setTimeout(navigate(), 1000);
-    navigate();
+    
   };
   
-  // fonctions pour changer de page
-  const router = useRouter();
-  const navigate = () => {
-    router.push("/homeTweet");
-  };
 
   return (
     <div className={styles.main}>

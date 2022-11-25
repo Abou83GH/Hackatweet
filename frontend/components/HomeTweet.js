@@ -90,6 +90,7 @@ function HomeTweet() {
           <div className={styles.username}>
             <span>{theUser.firstName}</span>@{theUser.userName}
           </div>
+          <button onClick={() => {console.log('click logout')}} className={styles.buttonLogout}>Logout</button>
         </div>
       </div>
       {/* HOME */}
