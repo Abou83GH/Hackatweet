@@ -29,4 +29,17 @@ router.post('/add', (req, res) => {
    })
  });
 
+ // route pour charger tous les tweets
+ router.get('/', (req, res) => {
+    Tweet.find({ }).then(dataTweet => {
+        if(dataTweet){
+            res.json({ result: true, data : dataTweet });
+        }else{
+            res.json({ result: false, error: 'Tweets not found' });
+        }
+
+    })
+
+ })
+
 module.exports = router;

@@ -8,7 +8,7 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { addTweet } from "../reducers/alltweets";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { updateTrend } from "../reducers/alltrends";
 
 const { getHashtags, setSpan } = require("../modules/tools");
@@ -27,13 +27,37 @@ function HomeTweet() {
   // récuperation des trends
   const theTrends = useSelector((state) => state.allTrends.value);
 
+  // récupération des tweets au chargement
+  useEffect(() => {
+    fetch('http://localhost:3000/tweets')
+    .then(response => response.json())
+    .then(dataTweets => {
+        if(dataTweets.result){
+          console.log(DataTweets.data)
+          // on ajoute les messages au reducer
+          for(let item of dataTweets.data){
+            const isUserLike = item.likes.some(elt => elt === theUser.token);
+            dispatch(addTweet({
+                firstname: theUser.firstName,
+                username: theUser.userName,
+                date: item.Date,
+                message: item.message,
+                likes: item.likes.length,
+                userLike: isUserLike,
+              }));
+          }
+        } 
+    })
+
+  },[]);
+
   // gestion du click sur le bouton tweet
   const handleTweet = () => {
     // on rajoute le tweet en DB
     fetch("http://localhost:3000/tweets/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: theUser.token, message : theMessage, hashtags: '#essai' }),
+      body: JSON.stringify({ token: theUser.token, message : theMessage, hashtags: getHashtags(theMessage) }),
     })
       .then((response) => response.json())
       .then((data) => {

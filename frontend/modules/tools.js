@@ -14,7 +14,7 @@ function getHashtags(message) {
     const result = [];
     let temp;
     while(temp = rgx.exec(message)){
-        result.push(temp[1])
+        result.push(`#${temp[1]}`)
     }
     return result;
 }

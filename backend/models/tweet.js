@@ -4,7 +4,7 @@ const tweetSchema = mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   message: String,
   date: Date,
-  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
+  likes: [String],
   hashtags: [String],
 });
 

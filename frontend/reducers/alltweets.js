@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"; /*L'import obligatoire*/
 
 const initialState = {
-  value: [{firstname : 'Nico', username : 'Lead', date : "", message :'blabla,' ,likes : 2 , userLike:true},
-  {firstname : 'Gabin', username : 'Junior', date : "", message :'blabla, #test' ,likes : 5, userLike:false }
-  ],
+  value: [],
 };
 
 export const allTweetsSlice = createSlice({
