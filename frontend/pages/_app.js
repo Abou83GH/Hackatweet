@@ -4,9 +4,10 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import modaleUp from "../reducers/modaleUp";
 import modaleIn from "../reducers/modaleIn";
+import allTweets from "../reducers/alltweets";
 
 const store = configureStore({
-  reducer: { modaleUp, modaleIn },
+  reducer: { modaleUp, modaleIn, allTweets },
 });
 
 function App({ Component, pageProps }) {
