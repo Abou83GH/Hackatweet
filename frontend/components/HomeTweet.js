@@ -58,6 +58,13 @@ function HomeTweet() {
     },[]);
       
 
+  // click enter
+
+  const handlekeypress = (e) => {
+    if (e.key === "Enter") {
+      handleTweet();
+    }
+  };
 
   // gestion du click sur le bouton tweet
   const handleTweet = () => {
@@ -69,26 +76,27 @@ function HomeTweet() {
     })
       .then((response) => response.json())
       .then((data) => {
-          if(data.result){
-            dispatch(addTweet({
+        if (data.result) {
+          dispatch(
+            addTweet({
               // on ajoute le message au reducer
-                firstname: theUser.firstName,
-                username: theUser.userName,
-                date: Date.now(),
-                message: theMessage,
-                likes: 0,
-                userLike: false,
-              }));
-              // on met à jour les trends
-              const listHashtags = getHashtags(theMessage);
-              for (let item of listHashtags) {
-                dispatch(updateTrend(`#${item}`));
-              }
+              firstname: theUser.firstName,
+              username: theUser.userName,
+              date: Date.now(),
+              message: theMessage,
+              likes: 0,
+              userLike: false,
+            })
+          );
+          // on met à jour les trends
+          const listHashtags = getHashtags(theMessage);
+          for (let item of listHashtags) {
+            dispatch(updateTrend(`#${item}`));
           }
-
-      })
+        }
+      });
     // on reset l'input
-    setTheMessage('');
+    setTheMessage("");
   };
   
   const router = useRouter();
@@ -130,15 +138,19 @@ function HomeTweet() {
           <FontAwesomeIcon icon={faTwitter} className={styles.logoApp} />
         </div>
         <div className={styles.bottom}>
-        <div className={styles.user}>
-          <div>
-            <Image
-              src="/Capture d’écran 2022-11-25 093029.png"
-              alt="pp"
-              width={35}
-              height={35}
-              className={styles.pp}
-            />
+          <div className={styles.user}>
+            <div>
+              <Image
+                src="/Capture d’écran 2022-11-25 093029.png"
+                alt="pp"
+                width={35}
+                height={35}
+                className={styles.pp}
+              />
+            </div>
+            <div className={styles.username}>
+              <span>{theUser.firstName}</span>@{theUser.userName}
+            </div>
           </div>
           <div className={styles.username}>
             <span>{theUser.firstName}</span>@{theUser.userName}
@@ -146,7 +158,6 @@ function HomeTweet() {
         </div>
         <button onClick={() => {handleLogout()}} className={styles.buttonLogout}>Logout</button>
         </div>
-      </div>
       {/* HOME */}
       <div className={styles.home}>
         <span>Home</span>
@@ -157,9 +168,11 @@ function HomeTweet() {
             className={styles.inputTweet}
             onChange={(e) => setTheMessage(e.target.value)}
             value={theMessage}
+            maxlength="280"
+            onKeyDown={handlekeypress}
           />
           <div className={styles.validation}>
-            <span>{theMessage.length}/250</span>
+            <span>{theMessage.length}/280</span>
             <button
               className={styles.buttonTweet}
               onClick={() => handleTweet()}

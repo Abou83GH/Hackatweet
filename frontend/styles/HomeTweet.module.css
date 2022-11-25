@@ -80,6 +80,7 @@
   color: white;
   font-weight: 750;
   margin: 5px;
+  cursor: pointer;
 }
 
 .buttonLogout {
