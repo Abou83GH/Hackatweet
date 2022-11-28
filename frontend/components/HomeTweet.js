@@ -23,43 +23,39 @@ function HomeTweet() {
   //
   const [theMessage, setTheMessage] = useState("");
 
-  //récuperation du user
+  //récuperation du user dans le reducer
   const theUser = useSelector((state) => state.user.value);
 
-  // récuperation des tweets
+  // récuperation des tweets dans le reducer
   const theTweets = useSelector((state) => state.allTweets.value);
 
-  // récuperation des trends
+  // récuperation des trends dans le reducer
   const theTrends = useSelector((state) => state.allTrends.value);
-
- let essai ;
-  // récupération des tweets au chargement
+  
+  // récupération des tweet depuis la DB
   useEffect(() => {
     fetch('http://localhost:3000/tweets')
     .then(response => response.json())
     .then(dataTweets => {
-      console.log(dataTweets)
       if(dataTweets.result){
         // on ajoute les messages au reducer
         for(let item of dataTweets.data){
-          const isUserLike = item.likes.some(elt => elt === theUser.token);
+          //const isUserLike = item.likes.some(elt => elt === theUser.token);
           dispatch(addTweet({
-              firstname: theUser.firstName,
-              username: theUser.userName,
+              firstname: item.firstName,
+              username: item.userName,
               date: item.Date,
               message: item.message,
               likes: item.likes.length,
-              userLike: isUserLike,
+              userLike: false,
             }));
         }
       }  
     })
        
     },[]);
-      
 
   // click enter
-
   const handlekeypress = (e) => {
     if (e.key === "Enter") {
       handleTweet();
@@ -68,6 +64,7 @@ function HomeTweet() {
 
   // gestion du click sur le bouton tweet
   const handleTweet = () => {
+    console.log("click add")
     // on rajoute le tweet en DB
     fetch("http://localhost:3000/tweets/add", {
       method: "POST",
@@ -76,6 +73,7 @@ function HomeTweet() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         if (data.result) {
           dispatch(
             addTweet({
@@ -134,51 +132,48 @@ function HomeTweet() {
     <div className={styles.container}>
       {/* LEFT */}
       <div className={styles.leftContainer}>
-        <div className={styles.logoLeft}>
-          <FontAwesomeIcon icon={faTwitter} className={styles.logoApp} />
-        </div>
-        <div className={styles.bottom}>
-          <div className={styles.user}>
-            <div>
-              <Image
-                src="/Capture d’écran 2022-11-25 093029.png"
-                alt="pp"
-                width={35}
-                height={35}
-                className={styles.pp}
-              />
-            </div>
-            <div className={styles.username}>
-              <span>{theUser.firstName}</span>@{theUser.userName}
-            </div>
+          <div className={styles.logoLeft}>
+            <FontAwesomeIcon icon={faTwitter} className={styles.logoApp} />
           </div>
-          <div className={styles.username}>
-            <span>{theUser.firstName}</span>@{theUser.userName}
-          </div>
-        </div>
-        <button onClick={() => {handleLogout()}} className={styles.buttonLogout}>Logout</button>
-        </div>
+          {/* Bottom */}
+          <div className={styles.bottom}>
+                {/* user */}
+                <div className={styles.user}>
+                  <div><Image
+                    src="/Capture d’écran 2022-11-25 093029.png"
+                    alt="pp"
+                    width={35}
+                    height={35}
+                    className={styles.pp}/>
+                  </div>
+                  <div className={styles.username}>
+                    <span>{theUser.firstName}</span>@{theUser.userName}
+                  </div>
+                </div>
+                {/* bouton logout */}
+                <div>
+                <button onClick={() => {handleLogout()}} className={styles.buttonLogout}>Logout</button>
+                </div>
+          </div>   
+      </div>
       {/* HOME */}
       <div className={styles.home}>
         <span>Home</span>
         <div className={styles.tweetwriting}>
+          {/* Input du tweet */}
           <input
             type="text"
             placeholder="What's up ?"
             className={styles.inputTweet}
             onChange={(e) => setTheMessage(e.target.value)}
             value={theMessage}
-            maxlength="280"
+            maxLength="280"
             onKeyDown={handlekeypress}
           />
           <div className={styles.validation}>
             <span>{theMessage.length}/280</span>
-            <button
-              className={styles.buttonTweet}
-              onClick={() => handleTweet()}
-            >
-              Tweet
-            </button>
+            {/* bouton add tweet */}
+            <button className={styles.buttonTweet} onClick={() => handleTweet()}>Tweet </button>
           </div>
         </div>
       </div>
@@ -189,7 +184,7 @@ function HomeTweet() {
         <span> Trends </span>
         <div className={styles.trendsContainer}>{displayTrends}</div>
       </div>
-    </div>
+    </div>  
   );
 }
 

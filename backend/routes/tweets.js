@@ -31,23 +31,36 @@ router.post('/add', (req, res) => {
 
  // route pour charger tous les tweets
  router.get('/', (req, res) => {
-    Tweet.find({ }).then(dataTweet => {
+    const dataToSend = [];
+    /*Tweet.find({ }).then(dataTweet => {
         if(dataTweet){
-            const dataToSend = [];
-            // on récupère l utilisateur
+            //console.log('dataTweet',dataTweet)
+            // on récupère l utilisateur 
             for(let item of dataTweet){
                 User.findOne({id: item.user}).then(data =>{
                     dataToSend.push({firstName : data.firstName, userName : data.userName, message : item.message, date : item.date, likes : item.likes, hashtags : item.hashtags });
+                    console.log('là',dataToSend)
                 }) 
-                console.log(item)
+                console.log('dataToSend',dataToSend) 
             }
             res.json({ result: true, data : dataToSend });
              
         }else{
             res.json({ result: false, error: 'Tweets not found' });
         }
-
-    })
+    })*/
+    Tweet.find({ }).populate('user').then(dataTweet => {
+        //console.log('là', data);
+        const dataToSend = [];
+        if(dataTweet){
+            for(let item of dataTweet){
+                    dataToSend.push({firstName : item.user.firstName, userName : item.user.userName, message : item.message, date : item.date, likes : item.likes, hashtags : item.hashtags });
+                }
+            res.json({ result: true, data : dataToSend });
+        }else{
+            res.json({ result: false, error: 'Tweets not found' });
+        }
+      });
 
  })
 

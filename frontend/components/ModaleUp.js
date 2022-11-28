@@ -39,7 +39,7 @@ function ModaleUp() {
              ).then(response => response.json())
         .then(data => {
                       if(data.result){
-                            dispatch(addUser({ firstName: firstName, userName: userName, token: "" }));
+                            dispatch(addUser({ firstName: firstName, userName: userName, token: data.token }));
                             navigate();
                             dispatch(changeModaleUp(false));
                       }
