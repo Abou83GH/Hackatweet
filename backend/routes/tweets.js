@@ -11,6 +11,7 @@ const Trends= require('../models/trends');
 router.post('/add', (req, res) => {
     // on cherche l'id de l'utilisateur
    User.findOne({ token : req.body.token}).then(dataUser => {
+    console.log(dataUser)
        if(dataUser){
           // on crée un nouveau tweet
             const newTweet = new Tweet({
@@ -21,7 +22,7 @@ router.post('/add', (req, res) => {
                 hashtags: req.body.hashtags,
             });
           // enregistrement
-          newTweet.save().then(newDoc => {res.json({ result: true }) })
+          newTweet.save().then(newDoc => {res.json({ result: true , id : newDoc.id}) })
        }else{
             res.json({ result: false, error: 'User not find' });
        }
@@ -32,31 +33,16 @@ router.post('/add', (req, res) => {
  // route pour charger tous les tweets
  router.get('/', (req, res) => {
     const dataToSend = [];
-    /*Tweet.find({ }).then(dataTweet => {
-        if(dataTweet){
-            //console.log('dataTweet',dataTweet)
-            // on récupère l utilisateur 
-            for(let item of dataTweet){
-                User.findOne({id: item.user}).then(data =>{
-                    dataToSend.push({firstName : data.firstName, userName : data.userName, message : item.message, date : item.date, likes : item.likes, hashtags : item.hashtags });
-                    console.log('là',dataToSend)
-                }) 
-                console.log('dataToSend',dataToSend) 
-            }
-            res.json({ result: true, data : dataToSend });
-             
-        }else{
-            res.json({ result: false, error: 'Tweets not found' });
-        }
-    })*/
     Tweet.find({ }).populate('user').then(dataTweet => {
         //console.log('là', data);
-        const dataToSend = [];
+        const dataToSendTweets = [];
         if(dataTweet){
-            for(let item of dataTweet){
-                    dataToSend.push({firstName : item.user.firstName, userName : item.user.userName, message : item.message, date : item.date, likes : item.likes, hashtags : item.hashtags });
-                }
-            res.json({ result: true, data : dataToSend });
+            // on récupère les tweets
+            for(let item of dataTweet){   
+                dataToSendTweets.push({firstName : item.user.firstName, userName : item.user.userName, message : item.message, date : item.date, likes : item.likes, hashtags : item.hashtags });
+            }
+            // on envoie les données 
+            res.json({ result: true, data : dataToSendTweets});
         }else{
             res.json({ result: false, error: 'Tweets not found' });
         }
@@ -66,24 +52,38 @@ router.post('/add', (req, res) => {
 
  // route pour mettre à jour la liste des users ayant liké le tweet
  router.post('/like', (req, res) => {
-    Tweet.findOne({message : req.body.message }).then(dataTweet => {
-        if(dataTweet){
+    // on cherche si le tweet existe
+    Tweet.findOne({message : req.body.message }).populate('likes').then(dataTweet => {
+         if(dataTweet){
+            // On cherche l'id du user
+            User.findOne({token : req.body.token}).then(dataUser =>{ 
+                if(dataUser){
+                    let  newLikes =dataTweet.likes;
+                    // on vérifie si le user est déja dedans
+                    if(!dataTweet.likes.some(elt => elt.id === dataUser.id)){
+                        // il n'a pas encore liké, on l'ajoute
+                        newLikes.push(dataUser.id);
+                     }else{
+                        // l'user est déja dedans on le supprime
+                        newLikes = newLikes.filter(elt => elt.id !== dataUser.id);
+                    }
+                    // on met à jour la DB
+                    Tweet.findOneAndUpdate({message : req.body.message },{$set: {  likes : newLikes }})
+                    .then(dataTweet => {
+                            if(dataTweet){
+                                res.json({ result: true });
+                            }else{
+                                res.json({ result: false, error: 'Tweets not update' });
+                            } 
+                    }) // fin de la mise à jour de la DB Tweet
+                }else{
+                    res.json({ result: false, error: 'User not find' });
+                }
+            })// fin du find sur le user
             
-            const  newLikes =dataTweet.likes;
-            console.log(newLikes)
-            // on vérifie si le user est déja dedans
-            if(!dataTweet.likes.some(elt => elt === req.body.token)){
-                newLikes.push(req.body.token);
-            }else{
-                // l'user est déja dedans on le supprime
-                newLikes = newLikes.filter(elt => elt !== req.body.token);
-            }
-            console.log('newLikes',newLikes)
-            Tweet.updateOne({message : req.body.message },
-                {$addToSet: { likes: { $each: [ "camera", "electronics", "accessories" ] } }})
-                res.json({ result: true });
-        }else{
-            res.json({ result: false, error: 'Tweets not found' });
+                
+       }else{
+        res.json({ result: false, error: 'Tweets not found' });
         }
 
     })

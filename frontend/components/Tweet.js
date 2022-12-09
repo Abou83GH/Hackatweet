@@ -4,12 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useState } from "react";
-const { setSpan } = require("../modules/tools");
+const { setSpan, getHashtags } = require("../modules/tools");
+import { useSelector} from "react-redux";
 
 function Tweet(props) {
   const [isLiked, setIsLiked] = useState(props.userLike);
   const [nbLike, setNbLike] = useState(props.likes);
 
+  //récuperation du user dans le reducer
+  const theUser = useSelector((state) => state.user.value);
+
+
+// style du coeur selon s'il est séléctionné ou non
   let heartIconStyle = { cursor: "pointer" };
   if (isLiked) {
     heartIconStyle = { color: "#e74c3c", cursor: "pointer" };
@@ -17,8 +23,18 @@ function Tweet(props) {
 
   // click heart
   const handleLike = () => {
+    // on change en DB ajout ou suppression
+    fetch("http://localhost:3000/tweets/like", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: theUser.token, message : props.message, hashtags : getHashtags(props.message)}),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log('hashtags', getHashtags(props.message))
+    })
     if(isLiked){
-      // on retire le user du tweet dans la DB
+      // on met à jour l'état 
       setNbLike(nbLike-1);
     }
     if(!isLiked){

@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"; /*L'import obligatoire*/
 
 const initialState = {
-  value: [{title : '#Gabin_le_Boss', occurence : 5},
-  {title : '#essai', occurence : 1 }
-  ],
+  value: [ ],
 };
 
 export const allTrendsSlice = createSlice({
@@ -15,14 +13,19 @@ export const allTrendsSlice = createSlice({
       state.value.push(action.payload);
     },
     updateTrend: (state, action) => {
-     state.value =  state.value.map(elt => {
+       // on vérifie si le trend est dans le tableau
+    if(state.value.find(elt=> elt.title === action.payload)){
+      state.value =  state.value.map(elt => {
         if(elt.title === action.payload){
-             const theOccurence = elt.occurence + 1;
-             return {title : elt.title, occurence : theOccurence}
+          const theOccurence = elt.occurence + 1;
+          return {title : elt.title, occurence : theOccurence}
         }else{
-             return elt;
+          return elt;
         }
-    });
+      })
+    }else{
+      state.value.push({title : action.payload, occurence : 1})
+    }
     },
     removeTrends: (state, action) => {
       state.value=[];
